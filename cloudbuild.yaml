@@ -28,7 +28,11 @@ steps:
         'us-central1',
         '--platform',
         'managed',
-        '--allow-unauthenticated'
+        '--allow-unauthenticated',
+        '--port',
+        '8080',                  # ← explicitly tell Cloud Run which port
+        '--timeout',
+        '300'                    # ← extend startup timeout to 5 min
       ]
 
 images:
