@@ -11,10 +11,9 @@ RUN npm run build
 
 FROM nginx:alpine
 
-# copy build
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# replace nginx default config
+# IMPORTANT: override default nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
