@@ -9,13 +9,14 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM node:20-alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
+RUN npm install -g serve
 
-# IMPORTANT: override default nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
+
+COPY --from=build /app/dist ./dist
 
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "serve -s dist -l 8080"]
